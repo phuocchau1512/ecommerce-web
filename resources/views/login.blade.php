@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Đăng ký')
+@section('title', 'Đăng nhập')
 
 @section('content')
 <div class="auth-section">
@@ -10,12 +10,12 @@
             <!-- LEFT: IMAGE / BACKGROUND -->
             <div class="col-lg-6 d-none d-lg-flex auth-left">
                 <div class="auth-left-content">
-                    <span class="welcome-badge">Chào mừng quý khách 👋</span>
+                    <span class="welcome-badge">Chào mừng trở lại 👋</span>
 
                     <h1>Nội thất tinh tế</h1>
 
                     <p class="subtitle">
-                        Tạo tài khoản để khám phá những thiết kế nội thất hiện đại,
+                        Đăng nhập để tiếp tục khám phá những thiết kế nội thất hiện đại,
                         tối giản và đầy cảm hứng cho không gian sống của bạn.
                     </p>
 
@@ -26,7 +26,14 @@
             <!-- RIGHT: FORM -->
             <div class="col-lg-6 d-flex align-items-center justify-content-center">
                 <div class="auth-form-wrap">
-                    <h2 class="mb-4">Tạo tài khoản</h2>
+                    <h2 class="mb-4">Đăng nhập</h2>
+
+                    {{-- THÔNG BÁO LỖI --}}
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            Email hoặc mật khẩu không chính xác.
+                        </div>
+                    @endif
 
                     {{-- THÔNG BÁO THÀNH CÔNG --}}
                     @if (session('success'))
@@ -35,23 +42,8 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ url('/register') }}">
+                    <form method="POST" action="{{ url('/login') }}">
                         @csrf
-
-                        {{-- NAME --}}
-                        <div class="mb-3">
-                            <input
-                                type="text"
-                                class="form-control @error('name') is-invalid @enderror"
-                                name="name"
-                                value="{{ old('name') }}"
-                                placeholder="Họ và tên"
-                                required
-                            >
-                            @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
 
                         {{-- EMAIL --}}
                         <div class="mb-3">
@@ -69,7 +61,7 @@
                         </div>
 
                         {{-- PASSWORD --}}
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <input
                                 type="password"
                                 class="form-control @error('password') is-invalid @enderror"
@@ -82,26 +74,15 @@
                             @enderror
                         </div>
 
-                        {{-- CONFIRM PASSWORD --}}
-                        <div class="mb-4">
-                            <input
-                                type="password"
-                                class="form-control"
-                                name="password_confirmation"
-                                placeholder="Nhập lại mật khẩu"
-                                required
-                            >
-                        </div>
-
                         <button type="submit" class="btn btn-primary w-100">
-                            Đăng ký
+                            Đăng nhập
                         </button>
 
-                        {{-- LOGIN LINK --}}
+                        {{-- REGISTER LINK --}}
                         <p class="text-center mt-3 text-muted">
-                            Đã có tài khoản?
-                            <a href="{{ url('/login') }}" class="text-decoration-none">
-                                Đăng nhập
+                            Chưa có tài khoản?
+                            <a href="{{ url('/register') }}" class="text-decoration-none">
+                                Đăng ký ngay
                             </a>
                         </p>
                     </form>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -22,4 +23,8 @@ Route::get('/shop', [HomeController::class, 'shop']);
 
 Route::get('/thankyou', [HomeController::class, 'thankyou']);
 
-Route::get('/register', [HomeController::class, 'register']);
+Route::get('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'handleRegister']);
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'handleLogin']);
