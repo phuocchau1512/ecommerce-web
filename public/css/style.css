@@ -779,3 +779,70 @@ textarea {
   font-weight: 700;
   color: #2f2f2f;
 }
+
+/* USER DROPDOWN */
+.user-dropdown {
+    position: relative;
+}
+
+.user-toggle img {
+    width: 22px;
+    cursor: pointer;
+}
+
+/* MENU */
+.user-menu {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    width: 220px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.25s ease;
+    z-index: 999;
+    overflow: hidden;
+}
+
+/* HOVER HIỆN MENU */
+.user-dropdown:hover .user-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* USER INFO */
+.user-info {
+    padding: 14px 16px;
+    background: #f8f9fa;
+    font-size: 14px;
+}
+
+.user-info strong {
+    display: block;
+    color: #3b5d50;
+}
+
+/* ITEM */
+.user-item {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+    text-align: left;
+    background: none;
+    border: none;
+    color: #333;
+    cursor: pointer;
+}
+
+.user-item:hover {
+    background: #f1f1f1;
+}
+
+.user-item.logout {
+    color: #dc3545;
+}
