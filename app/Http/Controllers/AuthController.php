@@ -17,24 +17,35 @@ public function register(){
 
 
 public function handleRegister(Request $request)
-{
-    $request->validate([
-        'name' => 'required|min:3',
-        'email' => 'required|email|unique:users',
-        'password' => 'required|min:6|confirmed',
-    ]);
+    {
+        $request->validate(
+            [
+                'name' => 'required|min:3',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|min:6|confirmed',
+            ],
+            [
+                'name.required' => 'Vui lòng nhập họ tên',
+                'name.min' => 'Họ tên phải ít nhất 3 ký tự',
+                'email.required' => 'Vui lòng nhập email',
+                'email.email' => 'Email không đúng định dạng',
+                'email.unique' => 'Email đã tồn tại',
+                'password.required' => 'Vui lòng nhập mật khẩu',
+                'password.min' => 'Mật khẩu phải ít nhất 6 ký tự',
+                'password.confirmed' => 'Mật khẩu nhập lại không khớp',
+            ]
+        );
 
-    $user = User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => Hash::make($request->password),
-    ]);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
-    // 👉 ĐĂNG NHẬP NGAY
-    Auth::login($user);
+        Auth::login($user);
 
-    return redirect('/')->with('success', 'Đăng ký & đăng nhập thành công');
-}
+        return redirect('/')->with('success', 'Đăng ký thành công');
+    }
 
 
 public function login()
