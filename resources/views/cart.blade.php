@@ -3,133 +3,117 @@
 @section('title', 'Giỏ hàng')
 
 @section('content')
-        <div class="untree_co-section before-footer-section">
-            <div class="container">
-            <div class="row mb-5">
-                <form class="col-md-12" method="post">
-                <div class="site-blocks-table">
-                    <table class="table">
-                    <thead>
-                        <tr>
-                        <th class="product-thumbnail">Image</th>
-                        <th class="product-name">Product</th>
-                        <th class="product-price">Price</th>
-                        <th class="product-quantity">Quantity</th>
-                        <th class="product-total">Total</th>
-                        <th class="product-remove">Remove</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <td class="product-thumbnail">
-                            <img src="images/product-1.png" alt="Image" class="img-fluid">
-                        </td>
-                        <td class="product-name">
-                            <h2 class="h5 text-black">Product 1</h2>
-                        </td>
-                        <td>$49.00</td>
-                        <td>
-                            <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-outline-black decrease" type="button">&minus;</button>
-                            </div>
-                            <input type="text" class="form-control text-center quantity-amount" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-black increase" type="button">&plus;</button>
-                            </div>
+@php
+    $cart = session('cart', []);
+    $total = 0;
+@endphp
+
+<div class="container py-5 cart-page">
+
+    <h2 class="text-center mb-4 fw-bold">Giỏ hàng của bạn</h2>
+
+    <div class="row">
+        <!-- LEFT -->
+        <div class="col-lg-8">
+
+            <div class="cart-box mb-3">
+                <p class="mb-3 text-muted">
+                    Có <strong>{{ count($cart) }}</strong> sản phẩm trong giỏ hàng
+                </p>
+
+                @forelse ($cart as $key => $item)
+                    @php
+                        $itemTotal = $item['price'] * $item['quantity'];
+                        $total += $itemTotal;
+                    @endphp
+
+                    <!-- ITEM -->
+                    <div class="cart-item d-flex align-items-center">
+
+                        <!-- IMAGE -->
+                        <div class="cart-img">
+                            @if (!empty($item['image']))
+                                <img src="{{ asset('storage/' . $item['image']) }}" alt="">
+                            @else
+                                <img src="{{ asset('images/product-demo.jpg') }}" alt="">
+                            @endif
+                        </div>
+
+                        <!-- INFO -->
+                        <div class="cart-info flex-grow-1 ms-3">
+                            <h5 class="cart-title">
+                                {{ $item['name'] ?? 'Sản phẩm' }}
+                            </h5>
+
+                            <div class="cart-price">
+                                <span class="price-current">
+                                    {{ number_format($item['price']) }}đ
+                                </span>
                             </div>
 
-                        </td>
-                        <td>$49.00</td>
-                        <td><a href="#" class="btn btn-black btn-sm">X</a></td>
-                        </tr>
+                            @if (!empty($item['variant']))
+                                <p class="cart-variant">
+                                    {{ $item['variant'] }}
+                                </p>
+                            @endif
 
-                        <tr>
-                        <td class="product-thumbnail">
-                            <img src="images/product-2.png" alt="Image" class="img-fluid">
-                        </td>
-                        <td class="product-name">
-                            <h2 class="h5 text-black">Product 2</h2>
-                        </td>
-                        <td>$49.00</td>
-                        <td>
-                            <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-outline-black decrease" type="button">&minus;</button>
+                            <!-- QTY (chưa xử lý update) -->
+                            <div class="cart-qty">
+                                <button class="qty-btn" disabled>-</button>
+                                <input type="text" value="{{ $item['quantity'] }}" readonly>
+                                <button class="qty-btn" disabled>+</button>
                             </div>
-                            <input type="text" class="form-control text-center quantity-amount" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-black increase" type="button">&plus;</button>
-                            </div>
-                            </div>
+                        </div>
 
-                        </td>
-                        <td>$49.00</td>
-                        <td><a href="#" class="btn btn-black btn-sm">X</a></td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>
-                </form>
-            </div>
+                        <!-- TOTAL -->
+                        <div class="cart-total text-end" style="color:#000;font-weight:700">
+                            <strong>
+                                {{ number_format($itemTotal) }}đ
+                            </strong>
 
-            <div class="row">
-                <div class="col-md-6">
-                <div class="row mb-5">
-                    <div class="col-md-6 mb-3 mb-md-0">
-                    <button class="btn btn-black btn-sm btn-block">Update Cart</button>
-                    </div>
-                    <div class="col-md-6">
-                    <button class="btn btn-outline-black btn-sm btn-block">Continue Shopping</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                    <label class="text-black h4" for="coupon">Coupon</label>
-                    <p>Enter your coupon code if you have one.</p>
-                    </div>
-                    <div class="col-md-8 mb-3 mb-md-0">
-                    <input type="text" class="form-control py-3" id="coupon" placeholder="Coupon Code">
-                    </div>
-                    <div class="col-md-4">
-                    <button class="btn btn-black">Apply Coupon</button>
-                    </div>
-                </div>
-                </div>
-                <div class="col-md-6 pl-5">
-                <div class="row justify-content-end">
-                    <div class="col-md-7">
-                    <div class="row">
-                        <div class="col-md-12 text-right border-bottom mb-5">
-                        <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                        <span class="text-black">Subtotal</span>
-                        </div>
-                        <div class="col-md-6 text-right">
-                        <strong class="text-black">$230.00</strong>
-                        </div>
-                    </div>
-                    <div class="row mb-5">
-                        <div class="col-md-6">
-                        <span class="text-black">Total</span>
-                        </div>
-                        <div class="col-md-6 text-right">
-                        <strong class="text-black">$230.00</strong>
-                        </div>
-                    </div>
+                            {{-- route remove --}}
+                            <form action="{{ route('cart.remove', $key) }}"
+                            method="POST"
+                            class="cart-remove-form"
+                            onsubmit="return confirm('Xóa sản phẩm này khỏi giỏ hàng?')">
+                            @csrf
+                            @method('DELETE')
 
-                    <div class="row">
-                        <div class="col-md-12">
-                        <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='checkout.html'">Proceed To Checkout</button>
+                            <button type="submit" title="Xóa sản phẩm">
+                                ✕
+                            </button>
+                        </form>
                         </div>
                     </div>
-                    </div>
-                </div>
-                </div>
-            </div>
+                    <!-- END ITEM -->
+
+                @empty
+                    <p class="text-center text-muted">
+                        Giỏ hàng đang trống
+                    </p>
+                @endforelse
+
             </div>
         </div>
+
+        <!-- RIGHT -->
+        <div class="col-lg-4">
+            <div class="summary-box">
+                <h5 class="summary-title">Thông tin đơn hàng</h5>
+
+                <div class="summary-row">
+                    <span>Tổng tiền:</span>
+                    <strong class="summary-total">
+                        {{ number_format($total) }}đ
+                    </strong>
+                </div>
+
+                <button class="btn btn-danger w-100 mt-3"
+                        {{ empty($cart) ? 'disabled' : '' }}>
+                    THANH TOÁN
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

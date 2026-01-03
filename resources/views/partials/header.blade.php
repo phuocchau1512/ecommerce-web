@@ -56,11 +56,25 @@
         @endauth
 
         {{-- CART --}}
-        <li class="nav-item ms-3">
-            <a href="/cart">
+        @php
+    $cart = session('cart', []);
+    $cartCount = array_sum(array_column($cart, 'quantity'));
+    @endphp
+
+    <li class="nav-item ms-3">
+        <a href="/cart" class="cart-link">
+            <span class="cart-icon-wrap">
                 <img src="{{ asset('images/cart.svg') }}" alt="Giỏ hàng">
-            </a>
-        </li>
+
+                @if($cartCount > 0)
+                    <span class="cart-badge">
+                        {{ $cartCount }}
+                    </span>
+                @endif
+            </span>
+        </a>
+    </li>
+
 
     </ul>
     </div>

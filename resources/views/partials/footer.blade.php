@@ -11,7 +11,7 @@
 				<div class="subscription-form">
 					<h3 class="d-flex align-items-center">
 						<span class="me-1">
-							<img src="images/envelope-outline.svg" alt="Image" class="img-fluid">
+							<img src="{{ asset('images/envelope-outline.svg') }}" alt="Image" class="img-fluid">
 						</span>
 						<span>Đăng ký nhận ưu đãi</span>
 					</h3>

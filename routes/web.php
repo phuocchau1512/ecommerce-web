@@ -2,7 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ShopController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +24,19 @@ Route::get('/contact', [HomeController::class, 'contact']);
 
 Route::get('/services', [HomeController::class, 'services']);
 
-Route::get('/shop', [HomeController::class, 'shop']);
+
+Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
+
+
+Route::get('/products/{id}-{name}', [ProductController::class, 'show'])->name('products.show');
+Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store')->middleware('auth');
+
+
+
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::delete('/cart/remove/{key}', [CartController::class, 'remove'])->name('cart.remove');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+
 
 Route::get('/thankyou', [HomeController::class, 'thankyou']);
 

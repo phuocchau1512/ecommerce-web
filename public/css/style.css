@@ -535,6 +535,12 @@ a {
     opacity: .7; }
 
 .footer-section {
+    margin-top: 100px;   /* chỉnh 80–140px tùy gu */
+    position: relative;
+}
+
+
+.footer-section {
   padding: 80px 0;
   background: #ffffff; }
   .footer-section .relative {
@@ -846,3 +852,216 @@ textarea {
 .user-item.logout {
     color: #dc3545;
 }
+
+/* ===== PRODUCT ITEM OVERRIDE ===== */
+.product-section .product-item {
+    text-align: left;
+}
+
+
+/* ===== PRODUCT TITLE: 2 LINES + ELLIPSIS ===== */
+.product-section .product-item h3 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.45;
+    margin-bottom: 6px;
+    color: #2f2f2f;
+    text-align: left;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;        /* số dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+
+/* GIÁ: màu đỏ, nét mảnh */
+.product-section .product-item strong {
+    display: block;
+    font-size: 16px !important;
+    font-weight: 400 !important;   /* mảnh */
+    color: #e53935 !important;     /* đỏ */
+    text-align: left;
+}
+
+/* ===== CART PAGE ===== */
+.cart-page h2 {
+    color: #000;
+    font-weight: 700;   /* đậm rõ */
+}
+
+.cart-page {
+    font-size: 15px;
+}
+
+/* LEFT BOX */
+.cart-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+/* ITEM */
+.cart-item {
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+}
+
+.cart-img img {
+    width: 90px;
+    height: auto;
+    border-radius: 4px;
+}
+
+.cart-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.cart-price {
+    margin-bottom: 5px;
+}
+
+.price-current {
+    color: #e53935;
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+.price-old {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 14px;
+}
+
+.cart-variant {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+/* QUANTITY */
+.cart-qty {
+    display: flex;
+    align-items: center;
+    width: 110px;
+}
+
+.cart-qty input {
+    width: 40px;
+    height: 32px;
+    text-align: center;
+    border: 1px solid #ddd;
+    outline: none;
+}
+
+.qty-btn {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #ddd;
+    background: #fff;
+    cursor: pointer;
+}
+
+/* RIGHT */
+.cart-total {
+    min-width: 120px;
+}
+
+.cart-remove {
+    display: block;
+    margin-top: 8px;
+    color: #999;
+    text-decoration: none;
+}
+
+/* SUMMARY */
+.summary-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #eee;
+}
+
+.summary-title {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary-total {
+    color: #e53935;
+    font-size: 20px;
+}
+
+/* cart */
+.cart-remove-form {
+    display: inline;
+}
+
+.cart-remove-form button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin-left: 8px;
+
+    font-size: 18px;
+    line-height: 1;
+    color: #aaa;
+
+    cursor: pointer;
+}
+
+.cart-remove-form button:hover {
+    color: #e53935;
+}
+ 
+
+/* cho nut gio hang */
+.cart-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #000;
+    text-decoration: none;
+}
+
+.cart-icon-wrap {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-icon-wrap img {
+    width: 24px;
+    height: 24px;
+}
+
+/* badge số */
+.cart-badge {
+    position: absolute;
+    top: -6px;
+    left: 14px;          /* lệch sang phải icon */
+    background: #ff5722;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.cart-text {
+    font-size: 14px;
+}
+
