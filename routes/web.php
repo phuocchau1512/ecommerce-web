@@ -34,8 +34,10 @@ Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store
 
 
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::patch('/cart/update/{key}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/cart/remove/{key}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 
 
 Route::get('/thankyou', [HomeController::class, 'thankyou']);

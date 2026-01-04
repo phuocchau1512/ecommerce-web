@@ -4,9 +4,22 @@
 
 @section('content')
 
-<
+
 
 <div class="container py-5 product-detail">
+    
+    <nav class="breadcrumb-wrapper">
+        <a href="/">Trang chủ</a>
+        <span>/</span>
+
+        <a href="/shop">Cửa hàng</a>
+        <span>/</span>
+
+        <span class="current">
+            {{ $product->name }}
+        </span>
+    </nav>
+
     <div class="row">
 
         <!-- LEFT: GALLERY -->
@@ -53,6 +66,13 @@
             <h4 class="product-title mb-3">
                 {{ $product->name }}
             </h4>
+           
+            @if (session('success'))
+                <div class="alert alert-success add-cart-alert">
+                    {{ session('success') }}
+                </div>
+            @endif
+
 
             <!-- PRICE -->
             <div class="price mb-4">
@@ -70,20 +90,25 @@
             </div>
 
             <!-- SIZE -->
-            <div class="mb-4">
-                <span class="section-title">Loại</span>
+            @foreach ($product->variants as $index => $variant)
+                <button type="button"
+                    class="size-btn {{ $index === 0 ? 'active' : '' }}"
+                    data-price="{{ $variant->price }}"
+                    data-stock="{{ $variant->stock }}"
+                    data-variant-id="{{ $variant->id }}"
+                    data-image="{{ $variant->image ? asset('storage/' . $variant->image) : asset('storage/' . $product->image) }}">
+                    {{ $variant->variant_name }}
+                </button>
+            @endforeach
 
-                <div class="section-content size-options mt-2">
-                    @foreach ($product->variants as $index => $variant)
-                        <button type="button"
-                                class="size-btn {{ $index === 0 ? 'active' : '' }}"
-                                data-price="{{ $variant->price }}"
-                                data-image="{{ $variant->image ? asset('storage/' . $variant->image) : asset('storage/' . $product->image) }}">
-                            {{ $variant->variant_name }}
-                        </button>
-                    @endforeach
-                </div>
+
+            <div class="stock-wrapper">
+                <span class="stock-label">Tồn kho:</span>
+                <span id="stockText" class="stock-value">
+                    {{ $product->variants->first()->stock ?? 0 }}
+                </span>
             </div>
+
 
             <!-- INFO -->
             <div class="mb-4">
@@ -117,10 +142,6 @@
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary btn-lg">
                         THÊM VÀO GIỎ
-                    </button>
-
-                    <button type="button" class="btn btn-warning btn-lg text-white">
-                        MUA NGAY
                     </button>
                 </div>
             </form>
@@ -215,6 +236,8 @@
 </div>
 
 <script>
+
+
 /* THUMB CLICK */
 document.querySelectorAll('.thumb-img').forEach(img => {
     img.addEventListener('click', function () {
@@ -225,26 +248,94 @@ document.querySelectorAll('.thumb-img').forEach(img => {
     });
 });
 
-/* VARIANT CHANGE */
+
 document.querySelectorAll('.size-btn').forEach(btn => {
     btn.addEventListener('click', function () {
+
         document.querySelectorAll('.size-btn')
             .forEach(b => b.classList.remove('active'));
         this.classList.add('active');
 
+        /* PRICE */
         document.getElementById('productPrice').innerText =
             Number(this.dataset.price).toLocaleString('vi-VN') + 'đ';
 
+        /* IMAGE */
         document.getElementById('mainImage').src = this.dataset.image;
+
+        /* VARIANT ID */
+        document.getElementById('variantId').value = this.dataset.variantId;
+
+        /* STOCK */
+        currentStock = parseInt(this.dataset.stock);
+        stockText.innerText = currentStock;
+
+        /* RESET QTY */
+        qtyInput.value = 1;
+        qtyHidden.value = 1;
+
+        /* UPDATE BUTTON */
+        updateButtonState();
     });
 });
 
+
+
 /* QUANTITY */
+
+
 const qtyInput = document.getElementById('quantity');
-document.getElementById('plus').onclick = () => qtyInput.value++;
-document.getElementById('minus').onclick = () => {
-    if (qtyInput.value > 1) qtyInput.value--;
+const qtyHidden = document.getElementById('quantityInput');
+const stockText = document.getElementById('stockText');
+const addBtn = document.querySelector('button[type="submit"]');
+let currentStock = parseInt(stockText.innerText) || 0;
+
+/* CẬP NHẬT NÚT */
+function updateButtonState() {
+    if (currentStock <= 0) {
+        addBtn.disabled = true;
+        addBtn.innerText = 'HẾT HÀNG';
+    } else {
+        addBtn.disabled = false;
+        addBtn.innerText = 'THÊM VÀO GIỎ';
+    }
+}
+
+/* PLUS */
+document.getElementById('plus').onclick = () => {
+    let val = parseInt(qtyInput.value);
+
+    if (val < currentStock) {
+        qtyInput.value = val + 1;
+        qtyHidden.value = qtyInput.value;
+    } else {
+        const ok = confirm(
+            'Số lượng vượt quá tồn kho hiện có.\n' +
+            'Kho chỉ còn ' + currentStock + ' sản phẩm.'
+        );
+
+        if (ok) {
+            // Giữ nguyên số lượng tối đa
+            qtyInput.value = currentStock;
+            qtyHidden.value = currentStock;
+        }
+    }
 };
+
+
+/* MINUS */
+document.getElementById('minus').onclick = () => {
+    let val = parseInt(qtyInput.value);
+    if (val > 1) {
+        qtyInput.value = val - 1;
+        qtyHidden.value = qtyInput.value;
+    }
+};
+
+/* KHỞI TẠO */
+updateButtonState();
+
+
 
 
 const stars = document.querySelectorAll('.star-rating .star');

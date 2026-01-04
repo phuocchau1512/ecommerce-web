@@ -53,6 +53,37 @@ class CartController extends Controller
         return back()->with('success', 'Đã thêm vào giỏ hàng');
     }
 
+    public function update(Request $request, $key)
+    {
+        $cart = session()->get('cart', []);
+
+        if (!isset($cart[$key])) {
+            return back();
+        }
+
+        $qty = (int) $request->quantity;
+        if ($qty < 1) {
+            return back();
+        }
+
+        $variant = ProductVariant::find($key);
+        if (!$variant || $variant->stock <= 0) {
+            return back()->with('error', 'Sản phẩm đã hết hàng');
+        }
+
+        if ($qty > $variant->stock) {
+            return back()->with('error', 'Số lượng vượt quá tồn kho');
+        }
+
+        $cart[$key]['quantity'] = $qty;
+        session()->put('cart', $cart);
+
+        return back()->with('success', 'Đã cập nhật số lượng');
+    }
+
+
+
+
     public function remove($key)
     {
         $cart = session()->get('cart', []);
@@ -71,4 +102,18 @@ class CartController extends Controller
         $cart = session('cart', []);
         return view('cart', compact('cart'));
     }
+
+    public function checkout()
+    {
+        $cart = session('cart', []);
+
+        if (empty($cart)) {
+            return redirect()
+                ->route('cart.index')
+                ->with('error', 'Giỏ hàng đang trống');
+        }
+
+        return view('checkout', compact('cart'));
+    }
+
 }

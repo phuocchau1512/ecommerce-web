@@ -268,3 +268,24 @@
 .review-list {
     background: transparent; /* để item nổi */
 }
+
+/* ===== STOCK INFO ===== */
+
+.stock-wrapper {
+    margin: 10px 0;          /* ⬆⬇ ngắn & bằng nhau */
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+}
+
+.stock-label {
+    font-size: 15px;         /* nhỏ hơn xíu */
+    font-weight: 600;
+    margin-right: 4px;
+    color: #333;
+}
+
+.stock-value {
+    font-size: 15px;         /* bằng chữ */
+    font-weight: 500;
+    color: #777;             /* xám như cũ */
+}
