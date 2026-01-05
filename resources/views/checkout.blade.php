@@ -8,34 +8,55 @@
     $total = 0;
 @endphp
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
+
 <div class="container py-5 checkout-page">
     <div class="row g-4">
 
-        <!-- LEFT: FORM (GIỮ NGUYÊN – ĐANG OK) -->
+        <!-- LEFT: FORM -->
         <div class="col-lg-8">
+
+            {{-- FORM CHECKOUT --}}
+            <form action="{{ route('checkout.place') }}" method="POST">
+            @csrf
 
             <div class="checkout-box mb-4">
                 <h5 class="checkout-title">Thông tin giao hàng</h5>
 
                 <div class="row g-3">
-                    <div class="col-md-6">
-                        <input class="form-control" placeholder="Nhập họ và tên">
-                    </div>
-                    <div class="col-md-6">
-                        <input class="form-control" placeholder="Nhập số điện thoại">
-                    </div>
-                    <div class="col-md-6">
-                        <input class="form-control" placeholder="Nhập email">
-                    </div>
-                    <div class="col-md-6">
-                        <input class="form-control" value="Vietnam" readonly>
-                    </div>
-                    <div class="col-12">
-                        <input class="form-control" placeholder="Địa chỉ, tên đường">
-                    </div>
-                    <div class="col-12">
-                        <input class="form-control" placeholder="Tỉnh/TP, Quận/Huyện, Phường/Xã">
-                    </div>
+                    <input class="form-control"
+                        name="name"
+                        placeholder="Nhập họ và tên"
+                        required>
+
+                    <input class="form-control"
+                        name="phone"
+                        placeholder="Nhập số điện thoại"
+                        required>
+
+                    <input class="form-control"
+                        name="email"
+                        placeholder="Nhập email">
+
+                    <input class="form-control"
+                        name="address"
+                        placeholder="Địa chỉ, tên đường, quận, tỉnh"
+                        required>
                 </div>
             </div>
 
@@ -56,11 +77,11 @@
             </div>
 
             {{-- PHƯƠNG THỨC THANH TOÁN --}}
-            <div class="checkout-box">
+            <div class="checkout-box mb-4">
                 <h5 class="checkout-title">Phương thức thanh toán</h5>
 
                 <label class="option-card">
-                    <input type="radio" name="payment_method" checked>
+                    <input type="radio" name="payment_method" value="bank" checked>
                     <span class="option-content">
                         <span class="option-text">
                             Thanh toán chuyển khoản qua ngân hàng
@@ -69,7 +90,7 @@
                 </label>
 
                 <label class="option-card">
-                    <input type="radio" name="payment_method">
+                    <input type="radio" name="payment_method" value="cod">
                     <span class="option-content">
                         <span class="option-text">
                             Thanh toán khi giao hàng (COD)
@@ -78,6 +99,13 @@
                 </label>
             </div>
 
+            {{-- NÚT ĐẶT HÀNG  --}}
+            <button type="submit" class="btn btn-dark w-100">
+                ĐẶT HÀNG
+            </button>
+
+            </form>
+            {{-- END FORM CHECKOUT --}}
 
         </div>
 
@@ -96,12 +124,10 @@
 
                     <div class="order-item">
 
-                        <!-- IMAGE -->
                         <div class="order-img-wrap">
                             <img src="{{ asset('storage/' . $item['image']) }}" alt="">
                         </div>
 
-                        <!-- INFO -->
                         <div class="order-info">
                             <div class="order-name">
                                 {{ $item['name'] }}
@@ -118,19 +144,18 @@
                             </div>
                         </div>
 
-                        <!-- QTY -->
                         <div class="order-qty">
                             × {{ $item['quantity'] }}
                         </div>
 
-                        <!-- REMOVE -->
+                        <!-- REMOVE ITEM -->
                         <form action="{{ route('cart.remove', $key) }}"
                               method="POST"
                               class="order-remove"
                               onsubmit="return confirm('Xóa sản phẩm này?')">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">🗑</button>
+                            <button type="submit">Xóa</button>
                         </form>
 
                     </div>
@@ -157,10 +182,6 @@
                     <span>Tổng thanh toán</span>
                     <strong>{{ number_format($total) }}đ</strong>
                 </div>
-
-                <button class="btn btn-dark w-100 mt-3">
-                    ĐẶT HÀNG
-                </button>
             </div>
 
         </div>

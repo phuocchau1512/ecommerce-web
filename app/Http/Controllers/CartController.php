@@ -39,13 +39,14 @@ class CartController extends Controller
             $cart[$key]['quantity'] += $request->quantity;
         } else {
             $cart[$key] = [
-                'product_id' => $variant->product->id,
-                'name'       => $variant->product->name,
-                'variant'    => $variant->variant_name,
-                'price'      => $variant->price,
-                'quantity'   => $request->quantity,
-                'image'      => $variant->image ?? $variant->product->image
-            ];
+            'product_id' => $variant->product->id,
+            'variant_id' => $variant->id,          
+            'name'       => $variant->product->name,
+            'variant'    => $variant->variant_name,
+            'price'      => $variant->price,
+            'quantity'   => $request->quantity,
+            'image'      => $variant->image ?? $variant->product->image
+        ];
         }
 
         session()->put('cart', $cart);
