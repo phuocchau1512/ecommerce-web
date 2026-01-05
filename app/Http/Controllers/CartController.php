@@ -103,17 +103,4 @@ class CartController extends Controller
         return view('cart', compact('cart'));
     }
 
-    public function checkout()
-    {
-        $cart = session('cart', []);
-
-        if (empty($cart)) {
-            return redirect()
-                ->route('cart.index')
-                ->with('error', 'Giỏ hàng đang trống');
-        }
-
-        return view('checkout', compact('cart'));
-    }
-
 }

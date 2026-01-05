@@ -1,32 +1,8 @@
-/* ===== LAYOUT ===== */
-.checkout-left {
-    background: #f7f7f5;
-}
-
-.checkout-right {
-    background: #f3f2ee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px;
-    max-width: 520px;     /* 👈 CHẶN KHỐI PHẢI */
-}
-
-/* ===== HERO IMAGE (NHỎ GỌN) ===== */
-.checkout-hero {
-    width: 100%;
-    max-width: 420px;     /* 👈 CHẶN ẢNH */
-    height: auto;
-    max-height: 420px;
-    object-fit: contain;
-}
-
-/* ===== BOX ===== */
+/* ===== BOX CHUNG ===== */
 .checkout-box {
     background: #fff;
-    border-radius: 14px;
+    border-radius: 16px;
     padding: 20px;
-    margin-bottom: 16px;
     box-shadow: 0 6px 20px rgba(0,0,0,.06);
 }
 
@@ -42,7 +18,7 @@
     gap: 10px;
     padding: 14px;
     border: 1px solid #eee;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
     margin-bottom: 10px;
 }
@@ -52,14 +28,91 @@
     margin-top: 3px;
 }
 
-/* ===== MINI CART ===== */
-.mini-cart-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+/* ===== ORDER SUMMARY (RIGHT) ===== */
+.order-summary {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
 }
 
-/* ===== SUMMARY ===== */
+.summary-title {
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+/* ITEM */
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+/* IMAGE FIX CỨNG */
+.order-img-wrap {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.order-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* INFO */
+.order-info {
+    flex: 1;
+}
+
+.order-name {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.order-variant {
+    font-size: 13px;
+    color: #666;
+    margin: 4px 0;
+}
+
+.order-price {
+    color: #e53935;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+/* QTY */
+.order-qty {
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+}
+
+/* REMOVE */
+.order-remove button {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.order-remove button:hover {
+    color: #e53935;
+}
+
+/* SUMMARY */
 .summary-row {
     display: flex;
     justify-content: space-between;
@@ -69,4 +122,95 @@
 .summary-row.total {
     font-size: 18px;
     font-weight: 700;
+}
+
+/* ===== HEADINGS: FORCE BLACK & BOLD ===== */
+.checkout-title,
+.summary-title {
+    color: #000 !important;
+    font-weight: 700 !important;
+}
+
+/* Các nhãn tổng kết */
+.summary-row span {
+    color: #000;
+    font-weight: 500;
+}
+
+.summary-row.total span,
+.summary-row.total strong {
+    color: #000;
+    font-weight: 700;
+}
+
+/* ================================
+   OPTION CARD (SHIPPING / PAYMENT)
+   ================================ */
+
+.option-card {
+    display: block;
+    cursor: pointer;
+    margin-bottom: 14px;
+}
+
+/* Ẩn radio gốc */
+.option-card input {
+    display: none;
+}
+
+/* KHUNG */
+.option-content {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 20px 18px 52px; /* chừa chỗ radio */
+    border-radius: 14px;
+    border: 2px solid #e5e5e5;
+    background: #fff;
+    transition: all .2s ease;
+}
+
+/* TEXT */
+.option-text {
+    font-size: 14px;
+    line-height: 1.45;
+    color: #000;
+}
+
+.option-price {
+    font-weight: 700;
+    color: #000;
+    white-space: nowrap;
+}
+
+/* RADIO CUSTOM */
+.option-content::before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #bbb;
+    position: absolute;
+    left: 18px;
+    top: 20px;
+    background: #fff;
+    transition: all .2s ease;
+}
+
+/* ===== KHI ĐƯỢC CHỌN ===== */
+.option-card input:checked + .option-content {
+    border-color: #000;                 /* viền đen */
+    box-shadow: 0 0 0 1px #000;
+}
+
+.option-card input:checked + .option-content::before {
+    border-color: #2f6b4f;              /* xanh lục header */
+    background: #2f6b4f;
+    box-shadow: inset 0 0 0 4px #fff;
+}
+
+/* HOVER */
+.option-card:hover .option-content {
+    border-color: #000;
 }

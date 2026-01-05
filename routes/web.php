@@ -9,6 +9,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\CheckoutController;
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -37,7 +38,13 @@ Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::patch('/cart/update/{key}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/cart/remove/{key}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+
+
+
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout', [CheckoutController::class, 'placeOrder'])->name('checkout.place');
+Route::get('/checkout/success/{order}', [CheckoutController::class, 'success']) ->name('checkout.success');
+
 
 
 Route::get('/thankyou', [HomeController::class, 'thankyou']);

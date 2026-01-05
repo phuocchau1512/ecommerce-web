@@ -126,7 +126,7 @@
                     </strong>
                 </div>
 
-                <a href="{{ route('checkout') }}"
+                <a href="{{ route('checkout.index') }}"
                    class="btn btn-danger w-100 mt-3 {{ empty($cart) ? 'disabled' : '' }}">
                     THANH TOÁN
                 </a>

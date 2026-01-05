@@ -8,24 +8,24 @@
     $total = 0;
 @endphp
 
-<div class="container-fluid checkout-page">
-    <div class="row">
+<div class="container py-5 checkout-page">
+    <div class="row g-4">
 
-        <!-- LEFT: FORM -->
-        <div class="col-lg-8 p-5 checkout-left">
-
-            <h5 class="checkout-title mb-4">Thông tin giao hàng</h5>
+        <!-- LEFT: FORM (GIỮ NGUYÊN – ĐANG OK) -->
+        <div class="col-lg-8">
 
             <div class="checkout-box mb-4">
+                <h5 class="checkout-title">Thông tin giao hàng</h5>
+
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <input class="form-control" placeholder="Họ và tên">
+                        <input class="form-control" placeholder="Nhập họ và tên">
                     </div>
                     <div class="col-md-6">
-                        <input class="form-control" placeholder="Số điện thoại">
+                        <input class="form-control" placeholder="Nhập số điện thoại">
                     </div>
                     <div class="col-md-6">
-                        <input class="form-control" placeholder="Email">
+                        <input class="form-control" placeholder="Nhập email">
                     </div>
                     <div class="col-md-6">
                         <input class="form-control" value="Vietnam" readonly>
@@ -39,44 +39,117 @@
                 </div>
             </div>
 
+            {{-- PHƯƠNG THỨC GIAO HÀNG --}}
             <div class="checkout-box mb-4">
-                <h6 class="mb-2">Phương thức giao hàng</h6>
-                <label class="shipping-method">
-                    <input type="radio" checked>
-                    <span>
-                        Miễn phí giao hàng & lắp đặt tại TP.HCM
-                        <strong class="float-end text-success">Miễn phí</strong>
+                <h5 class="checkout-title">Phương thức giao hàng</h5>
+
+                <label class="option-card">
+                    <input type="radio" name="shipping_method" checked>
+                    <span class="option-content">
+                        <span class="option-text">
+                            Miễn phí giao hàng & lắp đặt tại tất cả quận huyện thuộc TP.HCM đối với các sản phẩm nội thất.
+                            Các sản phẩm thuộc danh mục Đồ Trang Trí, phí giao hàng sẽ được MOHO liên hệ báo sau.
+                        </span>
+                        <strong class="option-price">Miễn phí</strong>
                     </span>
                 </label>
             </div>
 
-            <div class="checkout-box mb-4">
-                <h6 class="mb-2">Phương thức thanh toán</h6>
-                <label class="payment-method">
-                    <input type="radio" name="payment" checked>
-                    <span>Chuyển khoản ngân hàng</span>
+            {{-- PHƯƠNG THỨC THANH TOÁN --}}
+            <div class="checkout-box">
+                <h5 class="checkout-title">Phương thức thanh toán</h5>
+
+                <label class="option-card">
+                    <input type="radio" name="payment_method" checked>
+                    <span class="option-content">
+                        <span class="option-text">
+                            Thanh toán chuyển khoản qua ngân hàng
+                        </span>
+                    </span>
                 </label>
-                <label class="payment-method">
-                    <input type="radio" name="payment">
-                    <span>Thanh toán khi giao hàng (COD)</span>
+
+                <label class="option-card">
+                    <input type="radio" name="payment_method">
+                    <span class="option-content">
+                        <span class="option-text">
+                            Thanh toán khi giao hàng (COD)
+                        </span>
+                    </span>
                 </label>
             </div>
 
-            <!-- TÓM TẮT -->
-            <div class="checkout-box">
-                <h6 class="mb-3">Tóm tắt đơn hàng</h6>
 
-                @foreach ($cart as $item)
+        </div>
+
+        <!-- RIGHT: GIỎ HÀNG + TÓM TẮT -->
+        <div class="col-lg-4">
+
+            <!-- GIỎ HÀNG -->
+            <div class="order-summary mb-4">
+                <h5 class="summary-title">Giỏ hàng</h5>
+
+                @foreach ($cart as $key => $item)
                     @php
                         $itemTotal = $item['price'] * $item['quantity'];
                         $total += $itemTotal;
                     @endphp
 
-                    <div class="mini-cart-item">
-                        <span>{{ $item['name'] }} × {{ $item['quantity'] }}</span>
-                        <strong>{{ number_format($itemTotal) }}đ</strong>
+                    <div class="order-item">
+
+                        <!-- IMAGE -->
+                        <div class="order-img-wrap">
+                            <img src="{{ asset('storage/' . $item['image']) }}" alt="">
+                        </div>
+
+                        <!-- INFO -->
+                        <div class="order-info">
+                            <div class="order-name">
+                                {{ $item['name'] }}
+                            </div>
+
+                            @if (!empty($item['variant']))
+                                <div class="order-variant">
+                                    {{ $item['variant'] }}
+                                </div>
+                            @endif
+
+                            <div class="order-price">
+                                {{ number_format($item['price']) }}đ
+                            </div>
+                        </div>
+
+                        <!-- QTY -->
+                        <div class="order-qty">
+                            × {{ $item['quantity'] }}
+                        </div>
+
+                        <!-- REMOVE -->
+                        <form action="{{ route('cart.remove', $key) }}"
+                              method="POST"
+                              class="order-remove"
+                              onsubmit="return confirm('Xóa sản phẩm này?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">🗑</button>
+                        </form>
+
                     </div>
                 @endforeach
+            </div>
+
+            <!-- TÓM TẮT -->
+            <div class="order-summary">
+                <h5 class="summary-title">Tóm tắt đơn hàng</h5>
+
+                <div class="summary-row">
+                    <span>Tổng tiền hàng</span>
+                    <strong>{{ number_format($total) }}đ</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Phí vận chuyển</span>
+                    <strong class="text-success">Miễn phí</strong>
+                </div>
 
                 <hr>
 
@@ -85,20 +158,12 @@
                     <strong>{{ number_format($total) }}đ</strong>
                 </div>
 
-                <button class="btn btn-danger w-100 mt-3">
-                    HOÀN TẤT ĐẶT HÀNG
+                <button class="btn btn-dark w-100 mt-3">
+                    ĐẶT HÀNG
                 </button>
             </div>
-        </div>
 
-        <!-- RIGHT: IMAGE (NHỎ GỌN) -->
-        <div class="col-lg-4 checkout-right d-none d-lg-flex">
-            <img
-                src="{{ asset('storage/' . ($cart[array_key_first($cart)]['image'] ?? '')) }}"
-                class="checkout-hero"
-                alt="">
         </div>
-
     </div>
 </div>
 @endsection

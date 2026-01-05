@@ -13,6 +13,7 @@
   <link href="{{ asset('css/tiny-slider.css') }}" rel="stylesheet">
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/product-detail.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/checkout.css') }}">
 </head>
 
 <body>
