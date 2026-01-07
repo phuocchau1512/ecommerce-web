@@ -202,11 +202,14 @@
                             @endforelse
 
                         </div>
-
-                        {{ $products->links() }}
-
                     </div>
                 </div>
+
+                {{-- pagination  --}}
+                <div class="d-flex justify-content-center mt-4">
+                    {{ $products->links('pagination::bootstrap-5') }}
+                </div>
+
             </div>
             <!-- ================= END PRODUCT AREA ================= -->
 
