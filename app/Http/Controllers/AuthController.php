@@ -40,6 +40,7 @@ public function handleRegister(Request $request)
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'user',
         ]);
 
         Auth::login($user);
@@ -48,7 +49,7 @@ public function handleRegister(Request $request)
     }
 
 
-public function login()
+public function showUserLogin()
 {
     return view('login');
 }
@@ -78,5 +79,32 @@ public function handleLogin(Request $request)
         ])
         ->withInput();
 }
+
+public function showAdminLogin()
+{
+    return view('admin.login');
+}
+
+public function adminLogin(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required'
+    ]);
+
+    if (Auth::attempt($request->only('email', 'password'))) {
+
+        // check role
+        if (Auth::user()->role !== 'admin') {
+            Auth::logout();
+            return back()->with('error', 'Bạn không có quyền truy cập admin');
+        }
+
+        return redirect()->route('admin.dashboard');
+    }
+
+    return back()->with('error', 'Email hoặc mật khẩu không đúng');
+}
+    
 }
 

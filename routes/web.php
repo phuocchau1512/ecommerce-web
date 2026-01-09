@@ -53,8 +53,19 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'handleRegister'])->name('register.post');
 
 
-Route::get('/login', [AuthController::class, 'login'])->name('login');
+// user login
+Route::get('/login', [AuthController::class, 'showUserLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'handleLogin']);
+
+
+// ADMIN
+// admin login
+Route::get('/admin/login', [AuthController::class, 'showAdminLogin'])->name('admin.login');
+Route::post('/admin/login', [AuthController::class, 'adminLogin'])->name('admin.login.submit');
+
+Route::get('/admin', function () {
+    return view('admin.dashboard');
+})->middleware('admin')->name('admin.dashboard');
 
 // LOGOUT
 Route::post('/logout', function (Request $request) {
