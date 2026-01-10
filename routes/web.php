@@ -10,6 +10,7 @@ use App\Http\Controllers\CartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\AdminUserController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -66,6 +67,13 @@ Route::post('/admin/login', [AuthController::class, 'adminLogin'])->name('admin.
 Route::get('/admin', function () {
     return view('admin.dashboard');
 })->middleware('admin')->name('admin.dashboard');
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
+    Route::post('/users', [AdminUserController::class, 'store']) ->name('users.store');
+    Route::put('/users/{id}', [AdminUserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{id}', [AdminUserController::class, 'destroy'])->name('users.destroy');
+});
 
 // LOGOUT
 Route::post('/logout', function (Request $request) {

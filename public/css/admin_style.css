@@ -294,3 +294,212 @@ section{
    }
 
 }
+
+/* ===================== */
+/* ADMIN USER – OVERRIDE */
+/* ===================== */
+
+.user-page {
+    padding: 40px;
+    background: #f1f5f9;
+    min-height: 100vh;
+}
+
+/* Header */
+.user-page .page-header {
+    background: white;
+    padding: 28px 32px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.08);
+    margin-bottom: 28px;
+}
+
+.user-page .page-header h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.user-page .page-header p {
+    font-size: 15px;
+    color: #64748b;
+    margin-top: 6px;
+}
+
+/* Toolbar */
+.user-page .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.user-page .toolbar input {
+    height: 46px;
+    width: 320px;
+    font-size: 15px;
+    padding: 0 18px;
+    border-radius: 999px;
+    border: 1px solid #e2e8f0;
+    background: white;
+}
+
+.user-page .toolbar-actions button {
+    height: 46px;
+    padding: 0 22px;
+    font-size: 14px;
+    border-radius: 999px;
+}
+
+/* Card */
+.user-page .card {
+    background: white;
+    border-radius: 18px;
+    padding: 6px;
+    box-shadow: 0 25px 60px rgba(15,23,42,.08);
+}
+
+/* Table */
+.user-page .user-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 15px;
+}
+
+.user-page .user-table thead th {
+    background: #0f172a;
+    color: white;
+    padding: 18px;
+    font-size: 14px;
+}
+
+.user-page .user-table tbody td {
+    padding: 18px;
+    color: #334155;
+}
+
+.user-page .user-table tbody tr {
+    transition: .2s;
+}
+
+.user-page .user-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* Badge */
+.user-page .badge {
+    padding: 6px 18px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.user-page .badge.admin {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.user-page .badge.user {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+/* Actions */
+.user-page .actions {
+    display: flex;
+    gap: 18px;
+    font-size: 18px;
+}
+
+.user-page .actions form {
+    display: inline;
+}
+
+.user-page .actions span,
+.user-page .actions button {
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 24px;
+    width: 420px;
+    border-radius: 8px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+/* ===================== */
+/* SEARCH RESET ICON */
+/* ===================== */
+
+.user-page .toolbar form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Input search (đã có nhưng ghi rõ để đồng bộ) */
+.user-page .toolbar input[type="text"] {
+    height: 46px;
+    width: 320px;
+    padding: 0 18px;
+    font-size: 15px;
+    border-radius: 999px;
+    border: 1px solid #e2e8f0;
+    background: white;
+}
+
+/* Nút reset icon */
+.user-page .toolbar .btn-icon {
+    height: 46px;          /* BẰNG input */
+    width: 46px;
+    border-radius: 999px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Icon bên trong */
+.user-page .toolbar .btn-icon img {
+    width: 22px;
+    height: 22px;
+}
+
+/* Hover nhẹ */
+.user-page .toolbar .btn-icon:hover {
+    background: #f1f5f9;
+}

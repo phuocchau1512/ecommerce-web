@@ -12,7 +12,7 @@
             {{-- CHƯA CÓ ROUTE THÌ ĐỂ # --}}
             <a href="#">Sản phẩm</a>
             <a href="#">Đặt hàng</a>
-            <a href="#">Users</a>
+            <a href="{{ route('admin.users.index') }}">Users</a>
             <a href="#">Tin nhắn</a>
             <a href="#">Bán hàng</a>
         </nav>
