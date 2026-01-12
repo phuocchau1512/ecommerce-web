@@ -430,14 +430,20 @@ section{
     display: none;
     align-items: center;
     justify-content: center;
-    z-index: 999;
+    z-index: 9999;
 }
 
 .modal-content {
     background: #fff;
     padding: 24px;
-    width: 420px;
-    border-radius: 8px;
+    width: 640px;
+    max-width: calc(100vw - 32px);
+    border-radius: 12px;
+    box-shadow: 0 25px 60px rgba(15,23,42,.25);
+}
+
+body.modal-open {
+    overflow: hidden;
 }
 
 .form-group {
@@ -501,5 +507,256 @@ section{
 
 /* Hover nhẹ */
 .user-page .toolbar .btn-icon:hover {
+    background: #f1f5f9;
+}
+
+/* Product image thumbnail */
+.product-thumb {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+}
+.variant-thumb {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+}
+
+/* ===================== */
+/* ADMIN MODAL – FORM FIX */
+/* ===================== */
+
+.modal-content h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    color: #0f172a;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.modal-content .form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
+}
+
+.modal-content .form-group input,
+.modal-content .form-group select {
+    height: 44px;
+    padding: 0 14px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+}
+
+.modal-content .form-group input[type="file"] {
+    padding: 8px;
+    height: auto;
+}
+
+.modal-content .modal-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+/* ===================== */
+/* BACK LINK */
+/* ===================== */
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #2563eb;
+    margin-bottom: 16px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.btn-back .icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.btn-back:hover {
+    text-decoration: underline;
+    color: #1e40af;
+}
+
+/* ========================= */
+/* PRODUCT ADD MODAL (SAFE) */
+/* ========================= */
+
+.product-modal {
+    z-index: 9999;
+}
+
+.product-modal-box {
+    width: 520px;
+    max-width: calc(100vw - 32px);
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.25);
+    overflow: hidden;
+}
+
+/* Header */
+.product-modal-header {
+    padding: 18px 22px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-modal-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.product-modal-close {
+    background: none;
+    border: none;
+    font-size: 26px;
+    cursor: pointer;
+    color: #64748b;
+}
+
+.product-modal-close:hover {
+    color: #ef4444;
+}
+
+/* Form layout */
+.product-form-grid {
+    padding: 22px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.product-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.product-form-group.full {
+    grid-column: span 2;
+}
+
+.product-form-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #334155;
+}
+
+.product-form-group input,
+.product-form-group select,
+.product-form-group textarea {
+    height: 42px;
+    padding: 0 14px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+.product-form-group textarea {
+    padding: 10px 14px;
+    height: auto;
+    resize: none;
+}
+
+/* Footer */
+.product-modal-actions {
+    padding: 18px 22px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    border-top: 1px solid #e5e7eb;
+}
+.product-form-group input[type="file"] {
+    height: auto;
+    padding: 8px;
+    font-size: 13px;
+    border-radius: 10px;
+}
+.product-modal-box,
+.modal-content {
+    overflow-x: hidden;
+}
+/* ===================== */
+/* TABLE HORIZONTAL SCROLL */
+/* ===================== */
+
+.table-scroll {
+    overflow-x: auto;
+}
+
+/* Table rộng */
+.wide-table {
+    min-width: 1300px;
+}
+
+/* Sticky base */
+.sticky-col {
+    position: sticky;
+    background: #fff;
+    z-index: 2;
+}
+
+/* Header sticky cao hơn */
+.user-table thead .sticky-col {
+    z-index: 3;
+}
+
+/* Cột ID */
+.col-id {
+    left: 0;
+    width: 80px;
+    text-align: center;
+}
+
+/* Cột Ảnh */
+.col-image {
+    left: 80px;
+    width: 90px;
+}
+
+/* Cột Tên */
+.col-name {
+    left: 170px;
+    min-width: 260px;
+}
+
+/* Viền phân cách */
+.col-name,
+.col-image,
+.col-id {
+    box-shadow: 2px 0 0 #e5e7eb;
+}
+.actions button,
+.actions a {
+    font-size: 18px;
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.actions button:hover,
+.actions a:hover {
     background: #f1f5f9;
 }

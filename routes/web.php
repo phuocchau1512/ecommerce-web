@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminProductController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -64,6 +65,7 @@ Route::post('/login', [AuthController::class, 'handleLogin']);
 Route::get('/admin/login', [AuthController::class, 'showAdminLogin'])->name('admin.login');
 Route::post('/admin/login', [AuthController::class, 'adminLogin'])->name('admin.login.submit');
 
+
 Route::get('/admin', function () {
     return view('admin.dashboard');
 })->middleware('admin')->name('admin.dashboard');
@@ -74,6 +76,39 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::put('/users/{id}', [AdminUserController::class, 'update'])->name('users.update');
     Route::delete('/users/{id}', [AdminUserController::class, 'destroy'])->name('users.destroy');
 });
+
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::get('/products', [AdminProductController::class, 'index'])
+            ->name('adproducts.index');
+
+
+        Route::post('/products', [AdminProductController::class, 'store'])->name('adproducts.store');
+
+
+        Route::put('/products/{id}', [AdminProductController::class, 'update'])
+            ->name('adproducts.update');
+
+        Route::delete('/products/{id}', [AdminProductController::class, 'destroy'])
+            ->name('adproducts.destroy');
+
+
+        Route::get('/products/{id}/variants', [AdminProductController::class, 'variants'])
+        ->name('adproducts.variants');
+
+        Route::put('/variants/{id}', [AdminProductController::class, 'updateVariant'])
+        ->name('admin.adproducts.variants.update');
+
+        Route::post('/products/{id}/variants', [AdminProductController::class, 'storeVariant'])
+        ->name('adproducts.variants.store');
+
+        Route::delete('/variants/{id}', [AdminProductController::class, 'destroyVariant'])
+        ->name('adproducts.variants.destroy');
+});
+
 
 // LOGOUT
 Route::post('/logout', function (Request $request) {

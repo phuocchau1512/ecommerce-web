@@ -35,4 +35,9 @@ class Product extends Model
         return $this->variants()->min('price');
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
 }

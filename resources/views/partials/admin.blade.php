@@ -10,7 +10,7 @@
         <nav class="navbar">
             <a href="{{ route('admin.dashboard') }}">Trang chủ</a>
             {{-- CHƯA CÓ ROUTE THÌ ĐỂ # --}}
-            <a href="#">Sản phẩm</a>
+            <a href="{{ route('admin.adproducts.index') }}">Sản phẩm</a>
             <a href="#">Đặt hàng</a>
             <a href="{{ route('admin.users.index') }}">Users</a>
             <a href="#">Tin nhắn</a>
