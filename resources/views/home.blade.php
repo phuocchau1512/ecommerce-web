@@ -35,46 +35,45 @@
 	<div class="container">
 		<div class="row">
 
+			{{-- Cột giới thiệu (GIỮ NGUYÊN) --}}
 			<div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
 				<h2 class="mb-4 section-title">Chất liệu cao cấp</h2>
 				<p class="mb-4">
 					Sản phẩm được hoàn thiện từ vật liệu chất lượng, bền bỉ theo thời gian.
 				</p>
-				<p><a href="shop.html" class="btn">Khám phá</a></p>
+				<p><a href="{{ route('shop.index') }}" class="btn">Khám phá</a></p>
 			</div>
 
-			<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-				<a class="product-item" href="cart.html">
-					<img src="images/product-1.png" class="img-fluid product-thumbnail">
-					<h3 class="product-title">Ghế Bắc Âu</h3>
-					<strong class="product-price">$50.00</strong>
-					<span class="icon-cross">
-						<img src="images/cross.svg" class="img-fluid">
-					</span>
-				</a>
-			</div>
+			{{-- SẢN PHẨM (DYNAMIC) --}}
+			@foreach($products as $product)
+				@php
+					$variant = $product->variants->first();
+				@endphp
 
-			<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-				<a class="product-item" href="cart.html">
-					<img src="images/product-2.png" class="img-fluid product-thumbnail">
-					<h3 class="product-title">Ghế Kruzo Aero</h3>
-					<strong class="product-price">$78.00</strong>
-					<span class="icon-cross">
-						<img src="images/cross.svg" class="img-fluid">
-					</span>
-				</a>
-			</div>
+				<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+					<a class="product-item"
+					   href="{{ route('products.show', [
+							'id' => $product->id,
+							'name' => Str::slug($product->name)
+					   ]) }}">
 
-			<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-				<a class="product-item" href="cart.html">
-					<img src="images/product-3.png" class="img-fluid product-thumbnail">
-					<h3 class="product-title">Ghế Công Thái Học</h3>
-					<strong class="product-price">$43.00</strong>
-					<span class="icon-cross">
-						<img src="images/cross.svg" class="img-fluid">
-					</span>
-				</a>
-			</div>
+						<img src="{{ asset('storage/' . $product->image) }}"
+							 class="img-fluid product-thumbnail">
+
+						<h3 class="product-title">{{ $product->name }}</h3>
+
+						@if($variant)
+							<strong class="product-price">
+								{{ number_format($variant->price) }} ₫
+							</strong>
+						@endif
+
+						<span class="icon-cross">
+							<img src="{{ asset('images/cross.svg') }}" class="img-fluid">
+						</span>
+					</a>
+				</div>
+			@endforeach
 
 		</div>
 	</div>

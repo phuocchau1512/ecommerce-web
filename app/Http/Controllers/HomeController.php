@@ -6,14 +6,20 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Product;
 
 class HomeController extends Controller
 {
     
 
-public function index() {
-    return view('home');
+public function index()
+{
+    $products = Product::with('variants')
+    ->inRandomOrder()
+    ->take(3)
+    ->get();
+
+    return view('home', compact('products'));
 }
 
 
