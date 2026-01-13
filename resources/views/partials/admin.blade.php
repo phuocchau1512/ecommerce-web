@@ -11,7 +11,7 @@
             <a href="{{ route('admin.dashboard') }}">Trang chủ</a>
             {{-- CHƯA CÓ ROUTE THÌ ĐỂ # --}}
             <a href="{{ route('admin.adproducts.index') }}">Sản phẩm</a>
-            <a href="#">Đặt hàng</a>
+            <a href="{{ route('admin.orders.index') }}">Đơn hàng</a>
             <a href="{{ route('admin.users.index') }}">Users</a>
             <a href="#">Tin nhắn</a>
             <a href="#">Bán hàng</a>

@@ -760,3 +760,347 @@ body.modal-open {
 .actions a:hover {
     background: #f1f5f9;
 }
+
+/* ===================== */
+/* ADMIN ORDERS */
+/* ===================== */
+
+.order-page {
+    padding: 40px;
+    background: #f1f5f9;
+    min-height: 100vh;
+}
+
+.order-page .page-header {
+    background: #fff;
+    padding: 28px 32px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.08);
+    margin-bottom: 28px;
+}
+
+.order-page h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.order-page p {
+    font-size: 15px;
+    color: #64748b;
+    margin-top: 6px;
+}
+
+/* Toolbar */
+.order-page .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.order-search {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.order-search input {
+    height: 46px;
+    width: 340px;
+    padding: 0 18px;
+    font-size: 15px;
+    border-radius: 999px;
+    border: 1px solid #e2e8f0;
+}
+
+/* Card */
+.order-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 6px;
+    box-shadow: 0 25px 60px rgba(15,23,42,.08);
+}
+
+/* Table */
+.order-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 15px;
+}
+
+.order-table thead th {
+    background: #0f172a;
+    color: #fff;
+    padding: 18px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.order-table tbody td {
+    padding: 18px;
+    color: #334155;
+}
+
+.order-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* Badge */
+.order-badge {
+    padding: 6px 18px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.order-badge.pending {
+    background: #fff7ed;
+    color: #9a3412;
+}
+
+.order-badge.processing {
+    background: #e0f2fe;
+    color: #075985;
+}
+
+.order-badge.completed {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.order-badge.cancelled {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Items row */
+.order-items-row {
+    background: #f8fafc;
+}
+
+.order-items-table {
+    width: 100%;
+    margin-top: 12px;
+    border-collapse: collapse;
+}
+
+.order-items-table th {
+    text-align: left;
+    font-size: 13px;
+    color: #475569;
+    padding-bottom: 6px;
+}
+
+.order-items-table td {
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.muted {
+    color: #64748b;
+    font-size: 13px;
+}
+/* ===================== */
+/* ORDER DETAIL – EASY VIEW */
+/* ===================== */
+
+/* Khối bao chi tiết */
+.order-items-card {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: #f8fafc;
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+}
+
+/* Header chi tiết */
+.order-items-header {
+    font-size: 15px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Table chi tiết */
+.order-items-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Header table chi tiết */
+.order-items-table thead th {
+    background: #f1f5f9;   /* XÁM NHẸ – không đen */
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Cell */
+.order-items-table tbody td {
+    padding: 12px 14px;
+    font-size: 14px;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* Dòng cuối */
+.order-items-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Hover nhẹ */
+.order-items-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* ===================== */
+/* ORDER STATUS SELECT */
+/* ===================== */
+
+.order-status-select {
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Pending */
+.order-status-select.pending {
+    background: #fff7ed;
+    color: #9a3412;
+}
+
+/* Shipping */
+.order-status-select.shipping {
+    background: #e0f2fe;
+    color: #075985;
+}
+
+/* Completed */
+.order-status-select.completed {
+    background: #dcfce7;
+    color: #166534;
+}
+/* ===================== */
+/* TOAST NOTIFICATION */
+/* ===================== */
+
+.toast {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all .3s ease;
+    z-index: 99999;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.success { background: #16a34a; }
+.toast.error { background: #dc2626; }
+/* ===================== */
+/* ORDER DETAIL – STRONGER CARD */
+/* ===================== */
+
+.order-items-card {
+    margin-top: 18px;
+    padding: 18px 22px;
+
+    /* Đậm hơn */
+    background: #ffffff;
+    border-radius: 16px;
+
+    /* Viền rõ hơn */
+    border: 1.5px solid #d1d5db;
+
+    /* Đổ bóng rõ hơn nhưng vẫn mềm */
+    box-shadow:
+        0 10px 25px rgba(15, 23, 42, 0.08),
+        0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+/* Header chi tiết – làm nổi */
+.order-items-header {
+    font-size: 15px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+
+    /* Gạch phân cách */
+    border-bottom: 1px solid #e5e7eb;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Table bên trong card */
+.order-items-table {
+    margin-top: 6px;
+    background: #f9fafb;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Header table */
+.order-items-table thead th {
+    background: #f3f4f6; /* đậm hơn xíu so với trước */
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 12px 14px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Cell */
+.order-items-table tbody td {
+    padding: 12px 14px;
+    font-size: 14px;
+    color: #334155;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Hover nhẹ hơn, không gắt */
+.order-items-table tbody tr:hover {
+    background: #eef2f7;
+}
+.order-row-updated {
+    background: #ecfeff !important;
+}
+/* Highlight order row after update */
+.order-row-updated {
+    background: #ecfeff !important;
+    transition: background .3s ease;
+}
+.order-filter {
+    height: 46px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: 1px solid #e2e8f0;
+    font-size: 14px;
+    background: white;
+}

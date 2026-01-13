@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\AdminOrdersController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -71,43 +72,38 @@ Route::get('/admin', function () {
 })->middleware('admin')->name('admin.dashboard');
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    
+    //USERS
     Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
     Route::post('/users', [AdminUserController::class, 'store']) ->name('users.store');
     Route::put('/users/{id}', [AdminUserController::class, 'update'])->name('users.update');
     Route::delete('/users/{id}', [AdminUserController::class, 'destroy'])->name('users.destroy');
-});
 
-Route::middleware(['auth', 'admin'])
-    ->prefix('admin')
-    ->name('admin.')
-    ->group(function () {
-
-        Route::get('/products', [AdminProductController::class, 'index'])
+    //PRODUCTS
+     Route::get('/products', [AdminProductController::class, 'index'])
             ->name('adproducts.index');
+    Route::post('/products', [AdminProductController::class, 'store'])->name('adproducts.store');
 
+    Route::put('/products/{id}', [AdminProductController::class, 'update'])->name('adproducts.update');
 
-        Route::post('/products', [AdminProductController::class, 'store'])->name('adproducts.store');
+    Route::delete('/products/{id}', [AdminProductController::class, 'destroy'])->name('adproducts.destroy');
 
+    Route::get('/products/{id}/variants', [AdminProductController::class, 'variants'])->name('adproducts.variants');
 
-        Route::put('/products/{id}', [AdminProductController::class, 'update'])
-            ->name('adproducts.update');
+    Route::put('/variants/{id}', [AdminProductController::class, 'updateVariant'])->name('admin.adproducts.variants.update');
 
-        Route::delete('/products/{id}', [AdminProductController::class, 'destroy'])
-            ->name('adproducts.destroy');
+    Route::post('/products/{id}/variants', [AdminProductController::class, 'storeVariant'])->name('adproducts.variants.store');
 
+    Route::delete('/variants/{id}', [AdminProductController::class, 'destroyVariant'])->name('adproducts.variants.destroy');
 
-        Route::get('/products/{id}/variants', [AdminProductController::class, 'variants'])
-        ->name('adproducts.variants');
+    //ODERS
+    Route::get('/orders', [AdminOrdersController::class, 'index'])->name('orders.index');
 
-        Route::put('/variants/{id}', [AdminProductController::class, 'updateVariant'])
-        ->name('admin.adproducts.variants.update');
+    Route::put('/orders/{id}/status', [AdminOrdersController::class, 'updateStatus'])->name('orders.updateStatus');
 
-        Route::post('/products/{id}/variants', [AdminProductController::class, 'storeVariant'])
-        ->name('adproducts.variants.store');
-
-        Route::delete('/variants/{id}', [AdminProductController::class, 'destroyVariant'])
-        ->name('adproducts.variants.destroy');
+    Route::delete('/orders/{id}', [AdminOrdersController::class, 'destroy'])->name('orders.destroy');
 });
+
 
 
 // LOGOUT
