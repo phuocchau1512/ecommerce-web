@@ -26,6 +26,9 @@
             @endif
             <select name="status" onchange="this.form.submit()" class="order-filter">
                 <option value="">Tất cả trạng thái</option>
+                <option value="cancelled" {{ request('status')=='cancelled'?'selected':'' }}>
+                    Đã hủy
+                </option>
                 <option value="pending" {{ request('status')=='pending'?'selected':'' }}>
                     Chờ xử lý
                 </option>
@@ -81,17 +84,25 @@
 
                     <td>
                         <select class="order-status-select {{ $order->status }}"
-                                data-id="{{ $order->id }}">
-                            <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>
-                                Chờ xử lý
-                            </option>
-                            <option value="shipping" {{ $order->status == 'shipping' ? 'selected' : '' }}>
-                                Đang giao
-                            </option>
-                            <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>
-                                Hoàn thành
-                            </option>
-                        </select>
+                            data-id="{{ $order->id }}"
+                            {{ in_array($order->status, ['completed', 'cancelled']) ? 'disabled' : '' }}>
+
+                        <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>
+                            Chờ xử lý
+                        </option>
+
+                        <option value="shipping" {{ $order->status == 'shipping' ? 'selected' : '' }}>
+                            Đang giao
+                        </option>
+
+                        <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>
+                            Hoàn thành
+                        </option>
+
+                        <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>
+                            Đã hủy
+                        </option>
+                    </select>
                     </td>
 
                     <td>{{ $order->created_at->format('d/m/Y') }}</td>
@@ -185,22 +196,25 @@ document.querySelectorAll('.order-status-select').forEach(select => {
         const orderId = select.dataset.id;
         const newStatus = select.value;
 
+        //  ĐÃ HỦY HOẶC HOÀN THÀNH
+        if (previousStatus === 'completed' || previousStatus === 'cancelled') {
+            showToast('Đơn hàng đã kết thúc, không thể thay đổi ❗', 'error');
+            select.value = previousStatus;
+            return;
+        }
+
         const label = {
             pending: 'Chờ xử lý',
             shipping: 'Đang giao',
-            completed: 'Hoàn thành'
+            completed: 'Hoàn thành',
+            cancelled: 'Đã hủy'
         };
 
         const confirmed = confirm(
             `Bạn có chắc muốn chuyển đơn #${orderId} sang trạng thái "${label[newStatus]}" không?`
         );
 
-        if (previousStatus === 'completed') {
-            showToast('Đơn đã hoàn thành, không thể thay đổi ❗', 'error');
-            select.value = previousStatus;
-            return;
-        }
-        else if (!confirmed) {
+        if (!confirmed) {
             select.value = previousStatus;
             return;
         }
@@ -223,14 +237,13 @@ document.querySelectorAll('.order-status-select').forEach(select => {
             if (data.success) {
                 previousStatus = newStatus;
                 select.className = 'order-status-select ' + newStatus;
+
+                // nếu hủy → khóa luôn
+                if (newStatus === 'cancelled') {
+                    select.disabled = true;
+                }
+
                 showToast('Cập nhật trạng thái thành công ✅', 'success');
-                const row = select.closest('tr');
-                row.classList.add('order-row-updated');
-                setTimeout(() => {
-                    row.classList.remove('order-row-updated');
-                }, 2000);
-            } else {
-                throw new Error();
             }
         })
         .catch(() => {
@@ -239,6 +252,9 @@ document.querySelectorAll('.order-status-select').forEach(select => {
         });
     });
 });
+
+
+
 </script>
 
 @endsection

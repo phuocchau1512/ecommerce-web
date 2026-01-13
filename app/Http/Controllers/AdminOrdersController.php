@@ -20,7 +20,7 @@ class AdminOrdersController extends Controller
             })
             ->latest()
             ->paginate(10)
-            ->withQueryString(); // ⭐ giữ filter khi paginate
+            ->withQueryString(); 
 
         return view('admin.orders', compact('orders'));
     }
@@ -29,10 +29,18 @@ class AdminOrdersController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:pending,shipping,completed'
+            'status' => 'required|in:pending,shipping,completed,cancelled'
         ]);
 
         $order = Order::findOrFail($id);
+
+        if (in_array($order->status, ['completed', 'cancelled'])) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Đơn hàng đã kết thúc, không thể thay đổi'
+            ], 400);
+        }
+
         $order->status = $request->status;
         $order->save();
 

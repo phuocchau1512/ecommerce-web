@@ -978,6 +978,17 @@ body.modal-open {
     cursor: pointer;
 }
 
+.order-status-select.cancelled {
+    background: #fee2e2;
+    color: #991b1b;
+    cursor: not-allowed;
+}
+
+/* Disabled select */
+.order-status-select:disabled {
+    opacity: .7;
+}
+
 /* Pending */
 .order-status-select.pending {
     background: #fff7ed;
@@ -1103,4 +1114,122 @@ body.modal-open {
     border: 1px solid #e2e8f0;
     font-size: 14px;
     background: white;
+}
+/* ===================== */
+/* DASHBOARD – FINAL FIX */
+/* ===================== */
+
+/* Wrapper để căn giữa giống Order page */
+.dashboard-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* Grid cố định 3 cột */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+
+    width: 100%;
+    max-width: 1100px; /* QUAN TRỌNG – giữ card nằm giữa */
+}
+
+/* Card */
+.dashboard-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 22px 24px;
+
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    text-decoration: none;
+    color: inherit;
+
+    box-shadow: 0 12px 30px rgba(0,0,0,.08);
+    transition: all .25s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(0,0,0,.15);
+}
+
+/* Icon */
+.dashboard-card .card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+    color: #fff;
+}
+
+/* Content */
+.dashboard-card .card-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-card .card-content span {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 4px;
+}
+
+.dashboard-card .card-content strong {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* ===================== */
+/* COLOR VARIANTS */
+/* ===================== */
+
+.dashboard-card.pending .card-icon {
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+}
+
+.dashboard-card.success .card-icon {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.dashboard-card.info .card-icon {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.dashboard-card.purple .card-icon {
+    background: linear-gradient(135deg, #8e44ad, #6d28d9);
+}
+
+.dashboard-card.user .card-icon {
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+}
+
+.dashboard-card.admin .card-icon {
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+}
+
+/* ===================== */
+/* RESPONSIVE */
+/* ===================== */
+
+@media (max-width: 992px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
 }

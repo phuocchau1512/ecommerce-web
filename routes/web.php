@@ -13,6 +13,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminOrdersController;
+use App\Http\Controllers\AdminDashboardController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -60,6 +61,11 @@ Route::post('/register', [AuthController::class, 'handleRegister'])->name('regis
 Route::get('/login', [AuthController::class, 'showUserLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'handleLogin']);
 
+// routes/web.php
+Route::get('/orders/history', [App\Http\Controllers\UserOrderController::class, 'index'])->name('orders.history');
+
+Route::put('/orders/{id}/cancel', [App\Http\Controllers\UserOrderController::class, 'cancel'])->name('orders.cancel');
+
 
 // ADMIN
 // admin login
@@ -67,11 +73,11 @@ Route::get('/admin/login', [AuthController::class, 'showAdminLogin'])->name('adm
 Route::post('/admin/login', [AuthController::class, 'adminLogin'])->name('admin.login.submit');
 
 
-Route::get('/admin', function () {
-    return view('admin.dashboard');
-})->middleware('admin')->name('admin.dashboard');
+
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
     
     //USERS
     Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');

@@ -41,8 +41,8 @@
                         <strong>{{ Auth::user()->name }}</strong>
                     </div>
 
-                    <a  class="user-item">
-                        Thông tin tài khoản
+                    <a  class="user-item" href="{{ route('orders.history') }}">
+                        Lịch sử mua hàng
                     </a>
 
                     <form method="POST" action="{{ route('logout') }}">
