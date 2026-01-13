@@ -23,11 +23,14 @@
                     <th>Tổng tiền</th>
                     <th>Trạng thái</th>
                     <th>Hành động</th>
+                    <th>Chi tiết</th>
                 </tr>
             </thead>
 
             <tbody>
             @forelse($orders as $order)
+
+                {{-- ORDER ROW --}}
                 <tr>
                     <td>#{{ $order->id }}</td>
                     <td>{{ $order->created_at->format('d/m/Y') }}</td>
@@ -47,18 +50,64 @@
 
                     <td>
                         @if($order->status === 'pending')
-                            <button class="user-cancel-btn"
-                                    data-id="{{ $order->id }}">
+                            <button class="user-cancel-btn" data-id="{{ $order->id }}">
                                 Hủy đơn
                             </button>
                         @else
                             <span class="user-muted">—</span>
                         @endif
                     </td>
+
+                    <td>
+                        <button class="user-view-btn" data-id="{{ $order->id }}">
+                            👁
+                        </button>
+                    </td>
                 </tr>
+
+                {{-- ORDER DETAIL --}}
+                <tr id="user-order-{{ $order->id }}" class="user-order-items-row" style="display:none;">
+                    <td colspan="7">
+                        <div class="user-order-items-card">
+
+                            <div class="user-order-items-header">
+                                Danh sách sản phẩm
+                            </div>
+
+                            <table class="user-order-items-table">
+                                <thead>
+                                    <tr>
+                                        <th>Sản phẩm</th>
+                                        <th>Phân loại</th>
+                                        <th>Số lượng</th>
+                                        <th>Giá</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($order->items as $item)
+                                    <tr>
+                                        <td>{{ $item->product_name }}</td>
+                                        <td>{{ $item->variant_name }}</td>
+                                        <td>x{{ $item->quantity }}</td>
+                                        <td>{{ number_format($item->price) }}₫</td>
+                                    </tr>
+                                @endforeach
+
+                                <tr class="user-order-total">
+                                    <td colspan="2">Tổng cộng</td>
+                                    <td>x{{ $order->items->sum('quantity') }}</td>
+                                    <td>{{ number_format($order->total_amount) }}₫</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </td>
+                </tr>
+
             @empty
                 <tr>
-                    <td colspan="6" class="user-muted">
+                    <td colspan="7" class="user-muted">
                         Chưa có đơn hàng nào
                     </td>
                 </tr>
@@ -74,11 +123,19 @@
     <div id="user-toast" class="user-toast"></div>
 </div>
 
+{{-- JS --}}
 <script>
+document.querySelectorAll('.user-view-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        const row = document.getElementById('user-order-' + id);
+        row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
+    });
+});
+
 document.querySelectorAll('.user-cancel-btn').forEach(btn => {
     btn.addEventListener('click', () => {
         const id = btn.dataset.id;
-
         if (!confirm('Bạn có chắc muốn hủy đơn hàng này không?')) return;
 
         fetch(`/orders/${id}/cancel`, {

@@ -10,12 +10,14 @@ class UserOrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::where('user_id', Auth::id())
+        $orders = Order::with('items')
+            ->where('user_id', Auth::id())
             ->latest()
             ->paginate(10);
 
         return view('history', compact('orders'));
     }
+
 
     public function cancel($id)
     {
