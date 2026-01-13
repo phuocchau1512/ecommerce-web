@@ -1,3 +1,8 @@
+@php
+/**
+ * @var \Illuminate\Pagination\LengthAwarePaginator|\App\Models\Product[] $products
+ */
+@endphp
 @extends('layouts.app')
 
 @section('title', 'Cửa hàng')

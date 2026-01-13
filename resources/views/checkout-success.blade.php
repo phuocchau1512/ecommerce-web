@@ -1,3 +1,6 @@
+@php
+/** @var \App\Models\Order $order */
+@endphp
 @extends('layouts.app')
 
 @section('title', 'Đặt hàng thành công')

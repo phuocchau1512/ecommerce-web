@@ -1,3 +1,6 @@
+@php
+/** @var \App\Models\Product $product */
+@endphp
 @extends('layouts.admin')
 
 @section('title', 'Loại sản phẩm')

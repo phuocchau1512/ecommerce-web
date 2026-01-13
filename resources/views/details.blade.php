@@ -1,3 +1,6 @@
+@php
+/** @var \App\Models\Product $product */
+@endphp
 @extends('layouts.app')
 
 @section('title', $product->name)

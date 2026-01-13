@@ -1,3 +1,8 @@
+@php
+/** 
+ * @var \Illuminate\Pagination\LengthAwarePaginator|\App\Models\Product[] $products
+ */
+@endphp
 @extends('layouts.admin')
 
 @section('title', 'Quản lý sản phẩm')
